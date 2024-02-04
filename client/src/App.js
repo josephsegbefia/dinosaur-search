@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import './assets/styles.scss';
 
-function App() {
+import Layout from './components/Layout';
+import LoginForm  from './components/LoginForm';
+import DinoSearch from './components/DinoSearch';
+import DinoBrowse from './components/DinoBrowse';
+import DinoDetails from './components/DinoDetails';
+import Favourites from './components/Favourites';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path = '/login' component = {LoginForm} />
+          <Route path = '/favourites' component = {Favourites} />
+          <Route path = '/search' component = {DinoSearch} />
+          <Route path = 'browse/:name' component = {DinoBrowse} />
+          <Route path = 'dinos/:id' component = {DinoDetails} />
+          <Route path = '/' exact component = {DinoSearch} />
+          <Route>
+            <h1 className = 'title is-size-2'> 404 Page not found</h1>
+            <p>Apologies, you have hit a route we hadn't planned for.</p>
+            <p>Go back to the <Link to = '/search'>Search page</Link>to start again</p>
+          </Route>
+        </Routes>
+      </Layout>
+    </Router>
+  )
 }
 
-export default App;
+export default App
